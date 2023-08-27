@@ -1,5 +1,3 @@
-import { Source } from "graphql";
-
 export const userSchema = `#graphql
   type User {
     email: String
@@ -10,4 +8,3 @@ export const userSchema = `#graphql
     token: String
   }
 `;
-Source

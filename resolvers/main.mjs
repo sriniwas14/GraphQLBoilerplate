@@ -5,6 +5,7 @@ export const resolvers = {
         hello: () => 'world',
     },
     Mutation: {
-        signIn: authResolvers.signIn
+        signIn: authResolvers.signIn,
+        signUp: authResolvers.signUp
     }
 };
