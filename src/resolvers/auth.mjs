@@ -1,4 +1,4 @@
-import User from "../models/User.js"
+import User from "../models/User.mjs"
 
 export default {
     signIn: (parent, args) => {
