@@ -7,6 +7,7 @@ import { querySchema } from './typeDefs/query.mjs';
 import { mutationSchema } from './typeDefs/mutation.mjs';
 import { genericTypes } from './typeDefs/generic.mjs';
 
+
 const server = new ApolloServer({
   typeDefs: [userSchema, querySchema, mutationSchema, genericTypes],
   resolvers,

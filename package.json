@@ -2,9 +2,9 @@
   "name": "graphqlboilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "dev": "npx nodemon server.mjs",
+    "dev": "npx nodemon src/server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.9.2",
+    "babel-plugin-module-resolver": "^5.0.0",
     "graphql": "^16.8.0",
+    "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.8.1",
     "mongoose": "^7.4.5"
   },
