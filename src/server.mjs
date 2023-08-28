@@ -10,18 +10,11 @@ import { mutationSchema } from './typeDefs/mutation.mjs';
 import { genericTypes } from './typeDefs/generic.mjs';
 import authPlugin from './plugins/auth.mjs';
 
-import config from './config.mjs';
-
 
 const server = new ApolloServer({
   typeDefs: [userSchema, querySchema, mutationSchema, genericTypes],
   resolvers,
   plugins: [
-    {
-      requestDidStart: ({ contextValue }) => {
-        console.log("CVV ", contextValue);
-      }
-    },
     authPlugin
   ],
 });

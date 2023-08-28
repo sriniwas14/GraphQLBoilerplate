@@ -3,8 +3,7 @@ import config from "../config.mjs"
 
 const authPlugin = {
     requestDidStart: (all) => {
-        console.log("D", Object.keys(all.request))
-        return
+        // return
         const token = req.header('Authorization');
 
         if (!token) {
