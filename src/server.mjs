@@ -9,6 +9,9 @@ import { querySchema } from './typeDefs/query.mjs';
 import { mutationSchema } from './typeDefs/mutation.mjs';
 import { genericTypes } from './typeDefs/generic.mjs';
 import { GraphQLError } from 'graphql';
+import User from './models/User.mjs';
+import jsonwebtoken from 'jsonwebtoken';
+import config from './config.mjs';
 
 
 const server = new ApolloServer({
@@ -31,9 +34,9 @@ const { url } = await startStandaloneServer(server, {
       const operationName = req.body.operationName
       const token = req.headers.authorization || '';
 
+      if (queryExceptions.indexOf(operationName) > -1) return {}
 
-
-      if (!token && queryExceptions.indexOf(operationName) === -1) {
+      if (!token) {
         throw new GraphQLError('User is not authenticated', {
           extensions: {
             code: 'UNAUTHENTICATED',
@@ -41,9 +44,15 @@ const { url } = await startStandaloneServer(server, {
           },
         });
       }
-
-
-      return {};
+      try {
+        let decodedToken = await jsonwebtoken.verify(token, config.JWT_SECRET)
+        return { ...decodedToken };
+      } catch (error) {
+        return {
+          success: false,
+          message: "Token Expired!"
+        }
+      }
     },
 
 });
