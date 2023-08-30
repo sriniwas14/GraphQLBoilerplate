@@ -8,19 +8,21 @@ import { userSchema } from './typeDefs/user.mjs';
 import { querySchema } from './typeDefs/query.mjs';
 import { mutationSchema } from './typeDefs/mutation.mjs';
 import { genericTypes } from './typeDefs/generic.mjs';
-import authPlugin from './plugins/auth.mjs';
 import { GraphQLError } from 'graphql';
 
 
 const server = new ApolloServer({
   typeDefs: [userSchema, querySchema, mutationSchema, genericTypes],
-  resolvers,
-  plugins: [
-    authPlugin
-  ],
+  resolvers
 });
 
 connectDatabase()
+
+let queryExceptions = [
+  "IntrospectionQuery",
+  "signUp",
+  "signIn"
+]
 
 const { url } = await startStandaloneServer(server, {
   context:
@@ -29,9 +31,9 @@ const { url } = await startStandaloneServer(server, {
       const operationName = req.body.operationName
       const token = req.headers.authorization || '';
 
-      // TODO: Implement Path Exceptions
 
-      if (!token && operationName !== "IntrospectionQuery") {
+
+      if (!token && queryExceptions.indexOf(operationName) === -1) {
         throw new GraphQLError('User is not authenticated', {
           extensions: {
             code: 'UNAUTHENTICATED',
