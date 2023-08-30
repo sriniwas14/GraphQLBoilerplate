@@ -5,6 +5,8 @@ export const userSchema = `#graphql
   },
 
   type Auth {
-    token: String
+    token: String!
+    success: Boolean
+    message: String!
   }
 `;

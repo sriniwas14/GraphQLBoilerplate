@@ -1,4 +1,5 @@
-import { sign, verify } from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
+const { sign, verify } = jsonwebtoken
 import config from "../config.mjs"
 
 export const generateToken = (payload) => {
